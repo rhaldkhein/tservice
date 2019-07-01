@@ -1,6 +1,6 @@
 {
   "name": "tservice",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Typescript for JService",
   "main": "index.js",
   "scripts": {
