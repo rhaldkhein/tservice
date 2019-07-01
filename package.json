@@ -1,0 +1,19 @@
+{
+  "name": "tservice",
+  "version": "0.0.0",
+  "description": "Typescript for JService",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rhaldkhein/tservice.git"
+  },
+  "author": "RhaldKhein",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rhaldkhein/tservice/issues"
+  },
+  "homepage": "https://github.com/rhaldkhein/tservice#readme"
+}
