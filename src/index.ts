@@ -1,36 +1,11 @@
-import Collection from './Collection'
-import Provider from './Provider'
-import * as shortid from 'shortid'
-import IProvider from './interfaces/IProvider'
+export * from './Collection'
+export { default as Collection } from './Collection'
 
-interface IMyClass {
-  name: string
-}
+export * from './Container'
+export { default as Container } from './Container'
 
-class MyClass implements IMyClass {
-  name: string = shortid()
-  constructor(prov: string) {
-    console.log(prov);
-  }
-}
+export * from './Provider'
+export { default as Provider } from './Provider'
 
-const col = new Collection
-const prov = new Provider
-
-col.add('myclass', MyClass, () => {
-  return new MyClass('foo')
-})
-
-col.configure('myclass', () => {
-  return { a: 1 }
-})
-
-prov._setCollection(col)
-
-// - - - -
-
-const mc1 = prov.get('myclass')
-const mc2 = prov.get('myclass')
-
-console.log(mc1);
-console.log(mc2);
+export * from './ServiceDescriptor'
+export { default as ServiceDescriptor } from './ServiceDescriptor'

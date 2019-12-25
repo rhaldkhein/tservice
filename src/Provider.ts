@@ -1,12 +1,15 @@
 import IProvider from './interfaces/IProvider'
 import ICollection from './interfaces/ICollection'
 
+export { IProvider }
+
 export default class Provider implements IProvider {
 
+  private parent: IProvider
   private collection: ICollection
 
-  _setCollection(collection: ICollection) {
-    this.collection = collection
+  private createInstance(token: string) {
+
   }
 
   get<T>(token: string): T {
@@ -14,5 +17,12 @@ export default class Provider implements IProvider {
     return service.create(this) as T
   }
 
+  setCollection(collection: ICollection) {
+    this.collection = collection
+  }
+
+  setParent(parent: IProvider) {
+    this.parent = parent
+  }
 
 }

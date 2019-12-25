@@ -21,5 +21,4 @@ export default interface IServiceDescriptor<T> {
 
   create(provider: IProvider): T
 
-
 }

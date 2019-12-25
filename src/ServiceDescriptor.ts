@@ -1,5 +1,7 @@
 import IProvider from './interfaces/IProvider'
-import { Lifetime } from './interfaces/IServiceDescriptor'
+import IServiceDescriptor, { Lifetime } from './interfaces/IServiceDescriptor'
+
+export { IServiceDescriptor }
 
 export default class ServiceDescriptor<T> {
 

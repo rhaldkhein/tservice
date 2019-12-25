@@ -3,6 +3,8 @@ import IProvider from './interfaces/IProvider'
 import IServiceDescriptor, { Lifetime } from './interfaces/IServiceDescriptor'
 import ServiceDescriptor from './ServiceDescriptor'
 
+export { ICollection }
+
 export default class Collection implements ICollection {
 
   private services: any[] = []
