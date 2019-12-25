@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc",
     "watch": "nodemon -x ts-node src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --watch"
   },
   "repository": {
     "type": "git",
@@ -19,13 +19,15 @@
     "url": "https://github.com/rhaldkhein/tservice/issues"
   },
   "homepage": "https://github.com/rhaldkhein/tservice#readme",
+  "dependencies": {},
   "devDependencies": {
+    "@types/jest": "^24.0.24",
+    "jest": "^24.9.0",
+    "nodemon": "^2.0.2",
     "shortid": "^2.2.15",
+    "ts-jest": "^24.2.0",
     "ts-node": "^8.5.4",
     "tslint": "^5.20.1",
     "typescript": "^3.7.3"
-  },
-  "dependencies": {
-    "object-hash": "^2.0.1"
   }
 }
