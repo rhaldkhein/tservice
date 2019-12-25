@@ -9,6 +9,7 @@ export default class Collection implements ICollection {
 
   private services: any[] = []
   private tokens: object = {}
+  private parent: ICollection
 
   add<T>(token: string, klass: new (p: IProvider) => T, creator?: (provider: IProvider) => T): void {
     this.singleton(token, klass, creator)
@@ -19,8 +20,10 @@ export default class Collection implements ICollection {
     service.configurator = configurator
   }
 
-  get<T>(token: string, own?: any): IServiceDescriptor<T> {
-    return this.services[this.tokens[token]]
+  get<T>(token: string, own?: boolean): IServiceDescriptor<T> {
+    const service = this.services[this.tokens[token]]
+    if (service || own) return service
+    return this.parent && this.parent.get(token, own)
   }
 
   private push<T>(token: string, service: IServiceDescriptor<T>) {
@@ -33,6 +36,10 @@ export default class Collection implements ICollection {
     service.creator = creator || ((provider) => new klass(provider))
     service.lifetime = Lifetime.SCOPED
     this.push<T>(token, service)
+  }
+
+  setParent(collection: ICollection) {
+    this.parent = collection
   }
 
   singleton<T>(token: string, klass: new (p: IProvider) => T, creator?: (provider: IProvider) => T): void {

@@ -15,7 +15,7 @@ export default class ServiceDescriptor<T> {
 
   value?: T
 
-  create(provider: IProvider) {
+  create(provider: IProvider): T {
 
     if (!this.enabled)
       throw new Error('Unable to create disabled service')

@@ -6,8 +6,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "watch": "nodemon -x ts-node src/index.ts",
-    "test": "jest --watch"
+    "watch": "jest --watch",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
