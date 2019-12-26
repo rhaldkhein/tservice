@@ -1,40 +1,40 @@
-import Collection from './Collection'
-import Provider, { IProvider } from './Provider'
+import Collection from './Collection';
+import Provider, { IProvider } from './Provider';
 
 
 describe('Provider', () => {
 
-  class Singleton {
-    constructor(provider: IProvider) {
-      provider.get<BarService>('bar')
-    }
-  }
+  // class Singleton {
+  //   constructor(provider: IProvider) {
+  //     provider.get<BarService>('bar')
+  //   }
+  // }
 
   class FooService { }
   class BarService { }
   class BazService { }
-  let collection: Collection
-  let provider: Provider
+  let collection: Collection;
+  let provider: Provider;
 
   beforeEach(() => {
-    provider = new Provider()
-    collection = new Collection()
-    provider.setCollection(collection)
-    collection.add('foo', FooService)
-    collection.scoped('bar', BarService)
-    collection.transient('baz', BazService)
-  })
+    provider = new Provider();
+    collection = new Collection();
+    provider.setCollection(collection);
+    collection.add('foo', FooService);
+    collection.scoped('bar', BarService);
+    collection.transient('baz', BazService);
+  });
 
   test('create intances', () => {
-    const foo = provider.get<FooService>('foo')
-    expect(foo).toBeInstanceOf(FooService)
-    const scopedProvider = new Provider()
-    scopedProvider.setParent(provider)
-    const bar = scopedProvider.get<BarService>('bar')
-    const baz = scopedProvider.get<BazService>('baz')
-    expect(bar).toBeInstanceOf(BarService)
-    expect(baz).toBeInstanceOf(BazService)
-  })
+    const foo = provider.get<FooService>('foo');
+    expect(foo).toBeInstanceOf(FooService);
+    const scopedProvider = new Provider();
+    scopedProvider.setParent(provider);
+    const bar = scopedProvider.get<BarService>('bar');
+    const baz = scopedProvider.get<BazService>('baz');
+    expect(bar).toBeInstanceOf(BarService);
+    expect(baz).toBeInstanceOf(BazService);
+  });
 
   // test('scoped intances', () => {
   //   const barA = provider.get<BarService>('bar')
@@ -60,4 +60,4 @@ describe('Provider', () => {
   //   }).toThrow()
   // })
 
-})
+});

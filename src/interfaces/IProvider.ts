@@ -1,6 +1,6 @@
 
 export default interface IProvider {
 
-  get<T>(token: string): T
+  get<T>(token: string): T;
 
 }
