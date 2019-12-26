@@ -23,7 +23,7 @@ describe('Collection', () => {
     collection.singleton('foo', FooService);
     const service = collection.get('foo');
     expect(service).toBeInstanceOf(ServiceDescriptor);
-    expect(service.creator).toBeInstanceOf(Function);
+    expect(service.creator).toBeUndefined();
     expect(service.enabled).toBe(false || true);
     expect(service.lifetime).toBe(Lifetime.SINGLETON);
     expect(service.value).toBeUndefined;
@@ -69,14 +69,15 @@ describe('Collection', () => {
   });
 
   test('get service from parent collection', () => {
-    const parent = new Collection();
-    parent.singleton('foo', FooService);
+    const parentA = new Collection();
+    parentA.singleton('foo', FooService);
+    const parentB = new Collection();
+    parentB.setParent(parentA);
     let service = collection.get('foo');
     expect(service).toBeUndefined();
-    collection.setParent(parent);
+    collection.setParent(parentB);
     service = collection.get('foo');
     expect(service).toBeDefined();
-    expect(service.creator).toBeInstanceOf(Function);
     expect(service.lifetime).toBe(Lifetime.SINGLETON);
   });
 

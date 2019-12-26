@@ -6,7 +6,9 @@
     "outDir": "./dist",
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noImplicitReturns": true
+    "noImplicitReturns": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true
   },
   "include": [
     "src/**/*"

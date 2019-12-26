@@ -2,8 +2,8 @@
   "name": "tservice",
   "version": "0.0.1",
   "description": "Typescript for JService",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/Main.js",
+  "types": "dist/Main.d.ts",
   "scripts": {
     "build": "tsc",
     "watch": "jest --watch",

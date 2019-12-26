@@ -3,8 +3,6 @@ import IProvider from './interfaces/IProvider';
 import IServiceDescriptor, { Lifetime } from './interfaces/IServiceDescriptor';
 import ServiceDescriptor from './ServiceDescriptor';
 
-export { ICollection };
-
 type Service = new (p: IProvider) => any;
 
 export default class Collection implements ICollection {
@@ -13,7 +11,11 @@ export default class Collection implements ICollection {
   private tokens: { [token: string]: number } = {};
   private parent?: ICollection;
 
-  add<T>(token: string, klass: new (p: IProvider) => T, creator?: (provider: IProvider) => T): void {
+  constructor(parent?: ICollection) {
+    this.parent = parent;
+  }
+
+  add<T>(token: string, klass: Service, creator?: (provider: IProvider) => T): void {
     this.singleton(token, klass, creator);
   }
 
@@ -37,7 +39,7 @@ export default class Collection implements ICollection {
 
   scoped<T>(token: string, klass: Service, creator?: (provider: IProvider) => T): void {
     var service = new ServiceDescriptor<T>();
-    service.creator = creator || ((provider) => new klass(provider));
+    service.creator = creator;
     service.klass = klass;
     service.lifetime = Lifetime.SCOPED;
     this.push<T>(token, service);
@@ -49,14 +51,16 @@ export default class Collection implements ICollection {
 
   singleton<T>(token: string, klass: Service, creator?: (provider: IProvider) => T): void {
     var service = new ServiceDescriptor<T>();
-    service.creator = creator || ((provider) => new klass(provider));
+    service.creator = creator;
+    service.klass = klass;
     service.lifetime = Lifetime.SINGLETON;
     this.push<T>(token, service);
   }
 
   transient<T>(token: string, klass: Service, creator?: (provider: IProvider) => T): void {
     var service = new ServiceDescriptor<T>();
-    service.creator = creator || ((provider) => new klass(provider));
+    service.creator = creator;
+    service.klass = klass;
     service.lifetime = Lifetime.TRANSIENT;
     this.push<T>(token, service);
   }

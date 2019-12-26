@@ -2,8 +2,6 @@ import IProvider from './interfaces/IProvider';
 import ICollection from './interfaces/ICollection';
 import IServiceDescriptor, { Lifetime } from './interfaces/IServiceDescriptor';
 
-export { IProvider };
-
 export default class Provider implements IProvider {
 
   private collection?: ICollection;
@@ -15,37 +13,49 @@ export default class Provider implements IProvider {
     this.parent = parent;
   }
 
-  create<T>(token: string): T {
-    // Find cache service
-    let instance: T = this.instances[token];
-    if (instance) return instance;
+  createProvider(): IProvider {
+    return new Provider(undefined, this);
+  }
 
-    // Get service from here
-    let service: IServiceDescriptor<T>;
+  resolve<T>(token: string): IServiceDescriptor<T> | undefined {
+
+    let service: IServiceDescriptor<T> | undefined;
     if (this.collection) {
       service = this.collection.get<T>(token);
     }
-
-    // Resolve from parent
-    if (service === null) return null
-
-
-    if (!this.parent && service.lifetime > Lifetime.SINGLETON) {
-      throw new Error('Singleton should not require scoped or transient');
+    if (!service && this.parent) {
+      service = this.parent.resolve<T>(token);
     }
-
-    // No instance
-    if (service.lifetime === Lifetime.SCOPED) {
-      instance = service.create(this);
-      this.instances[token] = instance;
-    } else {
-      instance = service.create(this) as T;
-    }
-    return instance;
+    return service;
   }
 
-  get<T>(token: string): T {
-    return {} as T;
+  get<T>(token: string): T | null {
+
+    // Find cache service
+    let instance: T | null = this.instances[token];
+    if (instance) return instance;
+
+    // Get service from collection in here
+    let service = this.resolve<T>(token);
+
+    if (service) {
+
+      // Lifetime check
+      if (!this.parent && service.lifetime > Lifetime.SINGLETON) {
+        throw new Error('Singleton should not require scoped or transient');
+      }
+
+      // Create instance
+      if (service.lifetime === Lifetime.SCOPED) {
+        instance = service.create(this);
+        this.instances[token] = instance;
+      } else {
+        instance = service.create(this);
+      }
+
+    }
+
+    return instance;
   }
 
   setCollection(collection: ICollection) {
