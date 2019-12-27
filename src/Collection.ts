@@ -1,7 +1,7 @@
 import ICollection from './interfaces/ICollection';
 import IProvider from './interfaces/IProvider';
 import IOption from './interfaces/IOption';
-import IServiceDescriptor, { Lifetime, Service } from './interfaces/IServiceDescriptor';
+import IService, { Lifetime, Service } from './interfaces/IService';
 import ServiceDescriptor from './ServiceDescriptor';
 
 export default class Collection implements ICollection {
@@ -23,7 +23,7 @@ export default class Collection implements ICollection {
     service.configurator = configurator;
   }
 
-  get<T>(token: string, own?: boolean): IServiceDescriptor<T> {
+  get<T>(token: string, own?: boolean): IService<T> {
     const service = this.services[this.tokens[token]];
     if (!service && !own && this.parent) {
       return this.parent.get(token, own);
@@ -31,7 +31,7 @@ export default class Collection implements ICollection {
     return service;
   }
 
-  private push<T>(token: string, service: IServiceDescriptor<T>) {
+  private push<T>(token: string, service: IService<T>) {
     this.services.push(service);
     this.tokens[token] = this.services.length - 1;
   }

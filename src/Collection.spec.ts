@@ -1,6 +1,6 @@
 import Collection from './Collection';
 import ServiceDescriptor from './ServiceDescriptor';
-import { Lifetime } from './interfaces/IServiceDescriptor';
+import { Lifetime } from './interfaces/IService';
 
 
 describe('Collection', () => {

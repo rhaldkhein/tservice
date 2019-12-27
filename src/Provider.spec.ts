@@ -103,23 +103,21 @@ describe('Provider', () => {
   });
 
   test('correct option pass to service', () => {
-
     interface IOwnOption {
       foo: string;
     }
-
     class Sample {
       constructor(provider: IProvider, option: IOption) {
         const ownOption = option as IOwnOption;
-        console.log(ownOption.foo);
         expect(option).toBeDefined();
+        expect(ownOption.foo).toBe('bar');
       }
     }
-
     collection.add('sample', Sample);
-    // collection.configure('sample', (option: IOwnOption) => {
-    //   return { foo: 'bar' };
-    // });
+    collection.configure('sample', (provider: IProvider) => {
+      expect(provider).toBeInstanceOf(Provider);
+      return { foo: 'bar' } as IOwnOption;
+    });
     provider.get<Sample>('sample');
   });
 

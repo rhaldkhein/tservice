@@ -13,11 +13,11 @@ type ServiceB = new (p: IProvider, option: IOption) => any;
 type ServiceC = new (p: IProvider, option: IOption, token: string) => any;
 export type Service = ServiceA | ServiceB | ServiceC;
 
-export default interface IServiceDescriptor<T> {
+export default interface IService<T> {
 
   creator?: (provider: IProvider) => T;
 
-  configurator?: (provider?: IProvider) => IOption;
+  configurator?: (provider: IProvider) => IOption;
 
   enabled: boolean;
 

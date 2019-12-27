@@ -1,8 +1,8 @@
 import IProvider from './interfaces/IProvider';
 import IOption from './interfaces/IOption';
-import IServiceDescriptor, { Lifetime, Service } from './interfaces/IServiceDescriptor';
+import IService, { Lifetime, Service } from './interfaces/IService';
 
-export default class ServiceDescriptor<T> implements IServiceDescriptor<T> {
+export default class ServiceDescriptor<T> implements IService<T> {
 
   creator?: (provider: IProvider) => T;
 
