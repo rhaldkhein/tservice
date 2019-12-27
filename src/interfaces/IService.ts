@@ -8,10 +8,11 @@ export enum Lifetime {
   TRANSIENT = 3,
 }
 
-type ServiceA = new (p: IProvider) => any;
-type ServiceB = new (p: IProvider, option: IOption) => any;
-type ServiceC = new (p: IProvider, option: IOption, token: string) => any;
-export type ServiceConstructor = ServiceA | ServiceB | ServiceC;
+export type ServiceConstructor = new (
+  p: IProvider,
+  option: IOption,
+  token: string
+) => any;
 
 export default interface IService<T> {
 
