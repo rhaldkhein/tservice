@@ -81,21 +81,13 @@ describe('Provider', () => {
     expect(bar).toBeDefined();
   });
 
-  test('correct provider pass to service', () => {
+  test('correct service constructor arguments', () => {
     class Sample {
       constructor(provider: IProvider, option: IOption, token: string) {
         expect(provider).toBeDefined();
-        expect(provider).toBeInstanceOf(Provider);
-      }
-    }
-    collection.add('sample', Sample);
-    provider.get<Sample>('sample');
-  });
-
-  test('retrieve token name from service', () => {
-    class Sample {
-      constructor(provider: IProvider, option: IOption, token: string) {
+        expect(option).toBeDefined();
         expect(token).toBe('sample');
+        expect(provider).toBeInstanceOf(Provider);
       }
     }
     collection.add('sample', Sample);
@@ -109,6 +101,7 @@ describe('Provider', () => {
     class Sample {
       constructor(provider: IProvider, option: IOption) {
         const ownOption = option as IOwnOption;
+        expect(provider).toBeDefined();
         expect(option).toBeDefined();
         expect(ownOption.foo).toBe('bar');
       }
@@ -119,6 +112,12 @@ describe('Provider', () => {
       return { foo: 'bar' } as IOwnOption;
     });
     provider.get<Sample>('sample');
+  });
+
+  test('throw missing service', () => {
+    expect(() => {
+      provider.get<FooService>('foox');
+    }).toThrowError();
   });
 
 });

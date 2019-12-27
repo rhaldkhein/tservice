@@ -1,4 +1,3 @@
-// import IProvider from './interfaces/IProvider';
 import Provider from './Provider';
 import Container from './Container';
 

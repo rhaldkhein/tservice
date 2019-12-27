@@ -7,7 +7,9 @@ export default interface IProvider {
 
   resolve<T>(token: string): IService<T> | undefined;
 
-  get<T>(token: string): T | null;
+  get<T>(token: string): T;
+
+  getOrNull<T>(token: string): T | null;
 
   setCollection(collection: ICollection): void;
 

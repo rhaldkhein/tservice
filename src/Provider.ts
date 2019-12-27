@@ -29,7 +29,13 @@ export default class Provider implements IProvider {
     return service;
   }
 
-  get<T>(token: string): T | null {
+  get<T>(token: string): T {
+    let instance = this.getOrNull<T>(token);
+    if (!instance) throw new Error('Missing service: ' + token);
+    return instance;
+  }
+
+  getOrNull<T>(token: string): T | null {
 
     // Find cache service
     let instance: T | null = this.instances[token];
