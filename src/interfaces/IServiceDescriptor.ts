@@ -1,4 +1,5 @@
 import IProvider from './IProvider';
+import IOption from './IOption';
 
 export enum Lifetime {
   CONCRETE = 0,
@@ -7,17 +8,24 @@ export enum Lifetime {
   TRANSIENT = 3,
 }
 
+type ServiceA = new (p: IProvider) => any;
+type ServiceB = new (p: IProvider, option: IOption) => any;
+type ServiceC = new (p: IProvider, option: IOption, token: string) => any;
+export type Service = ServiceA | ServiceB | ServiceC;
+
 export default interface IServiceDescriptor<T> {
 
   creator?: (provider: IProvider) => T;
 
-  configurator?: (provider: IProvider) => boolean;
+  configurator?: (provider?: IProvider) => IOption;
 
   enabled: boolean;
 
-  klass?: new (provider: IProvider, option: (provider: IProvider) => any, service: IServiceDescriptor<T>) => T;
+  klass?: Service;
 
   lifetime: Lifetime;
+
+  token: string;
 
   value?: T;
 

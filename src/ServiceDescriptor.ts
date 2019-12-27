@@ -1,19 +1,26 @@
 import IProvider from './interfaces/IProvider';
-import IServiceDescriptor, { Lifetime } from './interfaces/IServiceDescriptor';
+import IOption from './interfaces/IOption';
+import IServiceDescriptor, { Lifetime, Service } from './interfaces/IServiceDescriptor';
 
 export default class ServiceDescriptor<T> implements IServiceDescriptor<T> {
 
   creator?: (provider: IProvider) => T;
 
-  configurator?: (provider: IProvider) => boolean;
+  configurator?: (provider?: IProvider) => IOption;
 
   enabled: boolean = true;
 
-  klass?: new (p: IProvider) => T;
+  klass?: Service;
 
   lifetime: Lifetime = Lifetime.SINGLETON;
 
+  token: string;
+
   value?: T;
+
+  constructor(token: string) {
+    this.token = token;
+  }
 
   /**
    * Methods
@@ -32,7 +39,11 @@ export default class ServiceDescriptor<T> implements IServiceDescriptor<T> {
     if (this.creator) {
       instance = this.creator(provider);
     } else if (this.klass) {
-      instance = new this.klass(provider);
+      if (this.configurator) {
+        instance = new this.klass(provider, this.configurator(provider), this.token);
+      } else {
+        instance = new this.klass(provider, {}, this.token);
+      }
     }
 
     // Save instance

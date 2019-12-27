@@ -1,9 +1,8 @@
 import ICollection from './interfaces/ICollection';
 import IProvider from './interfaces/IProvider';
-import IServiceDescriptor, { Lifetime } from './interfaces/IServiceDescriptor';
+import IOption from './interfaces/IOption';
+import IServiceDescriptor, { Lifetime, Service } from './interfaces/IServiceDescriptor';
 import ServiceDescriptor from './ServiceDescriptor';
-
-type Service = new (p: IProvider) => any;
 
 export default class Collection implements ICollection {
 
@@ -19,7 +18,7 @@ export default class Collection implements ICollection {
     this.singleton(token, klass, creator);
   }
 
-  configure(token: string, configurator: (provider: IProvider) => any): void {
+  configure(token: string, configurator: (provider: IProvider) => IOption): void {
     const service = this.get(token);
     service.configurator = configurator;
   }
@@ -38,7 +37,7 @@ export default class Collection implements ICollection {
   }
 
   scoped<T>(token: string, klass: Service, creator?: (provider: IProvider) => T): void {
-    var service = new ServiceDescriptor<T>();
+    var service = new ServiceDescriptor<T>(token);
     service.creator = creator;
     service.klass = klass;
     service.lifetime = Lifetime.SCOPED;
@@ -50,7 +49,7 @@ export default class Collection implements ICollection {
   }
 
   singleton<T>(token: string, klass: Service, creator?: (provider: IProvider) => T): void {
-    var service = new ServiceDescriptor<T>();
+    var service = new ServiceDescriptor<T>(token);
     service.creator = creator;
     service.klass = klass;
     service.lifetime = Lifetime.SINGLETON;
@@ -58,7 +57,7 @@ export default class Collection implements ICollection {
   }
 
   transient<T>(token: string, klass: Service, creator?: (provider: IProvider) => T): void {
-    var service = new ServiceDescriptor<T>();
+    var service = new ServiceDescriptor<T>(token);
     service.creator = creator;
     service.klass = klass;
     service.lifetime = Lifetime.TRANSIENT;

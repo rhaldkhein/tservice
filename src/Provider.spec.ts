@@ -1,4 +1,5 @@
 import IProvider from './interfaces/IProvider';
+import IOption from './interfaces/IOption';
 import Collection from './Collection';
 import Provider from './Provider';
 
@@ -78,6 +79,48 @@ describe('Provider', () => {
     const providerC = providerB.createProvider();
     const bar = providerC.get<BarService>('bar');
     expect(bar).toBeDefined();
+  });
+
+  test('correct provider pass to service', () => {
+    class Sample {
+      constructor(provider: IProvider, option: IOption, token: string) {
+        expect(provider).toBeDefined();
+        expect(provider).toBeInstanceOf(Provider);
+      }
+    }
+    collection.add('sample', Sample);
+    provider.get<Sample>('sample');
+  });
+
+  test('retrieve token name from service', () => {
+    class Sample {
+      constructor(provider: IProvider, option: IOption, token: string) {
+        expect(token).toBe('sample');
+      }
+    }
+    collection.add('sample', Sample);
+    provider.get<Sample>('sample');
+  });
+
+  test('correct option pass to service', () => {
+
+    interface IOwnOption {
+      foo: string;
+    }
+
+    class Sample {
+      constructor(provider: IProvider, option: IOption) {
+        const ownOption = option as IOwnOption;
+        console.log(ownOption.foo);
+        expect(option).toBeDefined();
+      }
+    }
+
+    collection.add('sample', Sample);
+    // collection.configure('sample', (option: IOwnOption) => {
+    //   return { foo: 'bar' };
+    // });
+    provider.get<Sample>('sample');
   });
 
 });

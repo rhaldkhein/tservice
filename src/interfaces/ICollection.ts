@@ -1,9 +1,10 @@
 import IProvider from './IProvider';
+import IOption from './IOption';
 import IServiceDescriptor from './IServiceDescriptor';
 
 export default interface ICollection {
 
-  configure<T>(token: string, configurator: (provider: IProvider) => any): void;
+  configure<T>(token: string, configurator: (provider?: IProvider) => IOption): void;
 
   get<T>(token: string, own?: any): IServiceDescriptor<T>;
 
