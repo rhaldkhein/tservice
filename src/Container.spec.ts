@@ -1,4 +1,4 @@
-import IProvider from './interfaces/IProvider';
+// import IProvider from './interfaces/IProvider';
 import Provider from './Provider';
 import Container from './Container';
 
@@ -45,11 +45,9 @@ describe('Container', () => {
   describe('Container Features', () => {
 
     let container: Container;
-    let provider: IProvider;
 
     beforeEach(() => {
       container = new Container();
-      provider = container.provider.createProvider();
       container.build(collection => {
         collection.add('foo', FooService);
         collection.scoped('bar', BarService);
@@ -57,17 +55,24 @@ describe('Container', () => {
       });
     });
 
-    test('start', (done) => {
-      container.start().then(done);
+    test('start method', (done) => {
+      container.start().then(provider => {
+        expect(provider).toBeInstanceOf(Provider);
+        done();
+      });
     });
 
     test('start and ready events', (done) => {
       const start = jest.fn();
       const ready = jest.fn();
-      class Sample {
-        static start = start;
-        static ready = ready;
-      }
+      container.on('start', provider => {
+        expect(provider).toBeInstanceOf(Provider);
+        start();
+      });
+      container.on('ready', provider => {
+        expect(provider).toBeInstanceOf(Provider);
+        ready();
+      });
       container.start().then(() => {
         expect(start).toHaveBeenCalled();
         expect(ready).toHaveBeenCalled();

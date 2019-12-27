@@ -1,36 +1,31 @@
 import IContainer from './interfaces/IContainer';
-import { ICollection, IProvider, Collection, Provider } from './Main';
+import EventEmitter from './EventEmitter';
+import ICollection from './interfaces/ICollection';
+import Collection from './Collection';
+import Provider from './Provider';
+import IProvider from './interfaces/IProvider';
 
-export default class Container implements IContainer {
+export default class Container extends EventEmitter implements IContainer {
 
   private collection: ICollection;
-  provider: IProvider;
   isReady: boolean = false;
 
   constructor() {
+    super(new Provider());
     this.collection = new Collection();
-    this.provider = new Provider(this.collection);
+    this.provider.setCollection(this.collection);
   }
 
   build(builder: (collection: ICollection) => void) {
     builder(this.collection);
   }
 
-  async start(): Promise<any> {
+  async start(): Promise<IProvider> {
     if (this.isReady) return Promise.resolve(this.provider);
-    await this.invoke('start');
-  }
-
-  async invoke(method: string) {
-    const services = this.collection.internalServices();
-    services.forEach(service => {
-      if (!service.klass) return;
-      const methodFunction: () => any = service.klass[method];
-      // if (method) results.push(method(
-      //   this.provider,
-      //   this.collection.trimDesc(service)
-      // ))
-    });
+    await this.emit('start');
+    this.isReady = true;
+    await this.emit('ready');
+    return this.provider;
   }
 
 }
