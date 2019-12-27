@@ -1,8 +1,8 @@
 import Collection from './Collection';
 import Provider from './Provider';
-import ServiceDescriptor from './ServiceDescriptor';
+import Service from './Service';
 
-describe('ServiceDescriptor', () => {
+describe('Service', () => {
 
   class FooService { }
   let collection: Collection;
@@ -16,7 +16,7 @@ describe('ServiceDescriptor', () => {
   test('correct type', () => {
     collection.add('foo', FooService);
     const service = collection.get<FooService>('foo');
-    expect(service).toBeInstanceOf(ServiceDescriptor);
+    expect(service).toBeInstanceOf(Service);
   });
 
   test('singleton instances', () => {

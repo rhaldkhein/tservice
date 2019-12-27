@@ -8,4 +8,4 @@ export { default as IService } from './interfaces/IService';
 export { default as Collection } from './Collection';
 export { default as Container } from './Container';
 export { default as Provider } from './Provider';
-export { default as ServiceDescriptor } from './ServiceDescriptor';
+export { default as Service } from './Service';

@@ -1,5 +1,5 @@
 import Collection from './Collection';
-import ServiceDescriptor from './ServiceDescriptor';
+import Service from './Service';
 import { Lifetime } from './interfaces/IService';
 
 
@@ -22,7 +22,7 @@ describe('Collection', () => {
   test('add a service with defaults', () => {
     collection.singleton('foo', FooService);
     const service = collection.get('foo');
-    expect(service).toBeInstanceOf(ServiceDescriptor);
+    expect(service).toBeInstanceOf(Service);
     expect(service.creator).toBeUndefined();
     expect(service.enabled).toBe(false || true);
     expect(service.lifetime).toBe(Lifetime.SINGLETON);

@@ -4,6 +4,14 @@ import IService from './IService';
 
 export default interface ICollection {
 
+  // Private
+
+  internalServices(): IService<any>[];
+
+  // Public
+
+  add<T>(token: string, klass: new () => T, creator?: (provider: IProvider) => T): void;
+
   configure<T>(token: string, configurator: (provider?: IProvider) => IOption): void;
 
   get<T>(token: string, own?: any): IService<T>;

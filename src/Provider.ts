@@ -58,11 +58,11 @@ export default class Provider implements IProvider {
     return instance;
   }
 
-  setCollection(collection: ICollection) {
+  setCollection(collection: ICollection): void {
     this.collection = collection;
   }
 
-  setParent(parent: IProvider) {
+  setParent(parent: IProvider): void {
     this.parent = parent;
   }
 

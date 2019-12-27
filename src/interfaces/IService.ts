@@ -11,7 +11,7 @@ export enum Lifetime {
 type ServiceA = new (p: IProvider) => any;
 type ServiceB = new (p: IProvider, option: IOption) => any;
 type ServiceC = new (p: IProvider, option: IOption, token: string) => any;
-export type Service = ServiceA | ServiceB | ServiceC;
+export type ServiceConstructor = ServiceA | ServiceB | ServiceC;
 
 export default interface IService<T> {
 
@@ -21,7 +21,7 @@ export default interface IService<T> {
 
   enabled: boolean;
 
-  klass?: Service;
+  klass?: ServiceConstructor;
 
   lifetime: Lifetime;
 
