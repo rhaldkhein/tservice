@@ -1,9 +1,9 @@
 import IContainer from './interfaces/IContainer';
-import EventEmitter from './EventEmitter';
 import ICollection from './interfaces/ICollection';
+import IProvider from './interfaces/IProvider';
+import EventEmitter from './EventEmitter';
 import Collection from './Collection';
 import Provider from './Provider';
-import IProvider from './interfaces/IProvider';
 
 export default class Container extends EventEmitter implements IContainer {
 
