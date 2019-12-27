@@ -41,14 +41,14 @@ export default class Collection implements ICollection {
   }
 
   configure(token: string, configurator: (provider: IProvider) => IOption): void {
-    const service = this.get(token);
+    const service = this.internalGet(token);
     service.configurator = configurator;
   }
 
-  get<T>(token: string, own?: boolean): IService<T> {
+  internalGet<T>(token: string, own?: boolean): IService<T> {
     const service = this.services[this.tokens[token]];
     if (!service && !own && this.parent) {
-      return this.parent.get(token, own);
+      return this.parent.internalGet(token, own);
     }
     return service;
   }

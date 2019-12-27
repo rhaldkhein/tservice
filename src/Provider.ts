@@ -17,14 +17,14 @@ export default class Provider implements IProvider {
     return new Provider(undefined, this);
   }
 
-  resolve<T>(token: string): IService<T> | undefined {
+  internalResolve<T>(token: string): IService<T> | undefined {
 
     let service: IService<T> | undefined;
     if (this.collection) {
-      service = this.collection.get<T>(token);
+      service = this.collection.internalGet<T>(token);
     }
     if (!service && this.parent) {
-      service = this.parent.resolve<T>(token);
+      service = this.parent.internalResolve<T>(token);
     }
     return service;
   }
@@ -42,7 +42,7 @@ export default class Provider implements IProvider {
     if (instance) return instance;
 
     // Get service from collection in here
-    let service = this.resolve<T>(token);
+    let service = this.internalResolve<T>(token);
 
     if (service) {
 
@@ -64,11 +64,11 @@ export default class Provider implements IProvider {
     return instance;
   }
 
-  setCollection(collection: ICollection): void {
+  internalSetCollection(collection: ICollection): void {
     this.collection = collection;
   }
 
-  setParent(parent: IProvider): void {
+  internalSetParent(parent: IProvider): void {
     this.parent = parent;
   }
 

@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc",
     "watch": "jest --watch",
-    "play": "ts-node _play ",
+    "play": "ts-node _play",
     "test": "jest"
   },
   "repository": {

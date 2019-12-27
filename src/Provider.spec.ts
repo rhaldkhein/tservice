@@ -21,7 +21,7 @@ describe('Provider', () => {
   beforeEach(() => {
     provider = new Provider();
     collection = new Collection();
-    provider.setCollection(collection);
+    provider.internalSetCollection(collection);
     collection.add('foo', FooService);
     collection.scoped('bar', BarService);
     collection.transient('baz', BazService);
@@ -31,7 +31,7 @@ describe('Provider', () => {
     const foo = provider.get<FooService>('foo');
     expect(foo).toBeInstanceOf(FooService);
     const newProvider = new Provider();
-    newProvider.setParent(provider);
+    newProvider.internalSetParent(provider);
     const bar = newProvider.get<BarService>('bar');
     const baz = newProvider.get<BazService>('baz');
     expect(bar).toBeInstanceOf(BarService);
@@ -40,12 +40,12 @@ describe('Provider', () => {
 
   test('scoped intances', () => {
     const oldProvider = new Provider();
-    oldProvider.setParent(provider);
+    oldProvider.internalSetParent(provider);
     const barA = oldProvider.get<BarService>('bar');
     const barB = oldProvider.get<BarService>('bar');
     expect(barB).toBe(barA);
     const newProvider = new Provider();
-    newProvider.setParent(provider);
+    newProvider.internalSetParent(provider);
     const barC = newProvider.get<BarService>('bar');
     expect(barC).not.toBe(barA);
     expect(barC).not.toBe(barB);
@@ -53,7 +53,7 @@ describe('Provider', () => {
 
   test('transient intances', () => {
     const newProvider = new Provider();
-    newProvider.setParent(provider);
+    newProvider.internalSetParent(provider);
     const bazA = newProvider.get<BazService>('baz');
     const bazB = newProvider.get<BazService>('baz');
     expect(bazB).not.toBe(bazA);

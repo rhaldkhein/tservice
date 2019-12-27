@@ -13,11 +13,12 @@ export default class Container extends EventEmitter implements IContainer {
   constructor() {
     super(new Provider());
     this.collection = new Collection();
-    this.provider.setCollection(this.collection);
+    this.provider.internalSetCollection(this.collection);
   }
 
-  build(builder: (collection: ICollection) => void) {
+  build(builder: (collection: ICollection) => void): IContainer {
     builder(this.collection);
+    return this;
   }
 
   async start(): Promise<IProvider> {

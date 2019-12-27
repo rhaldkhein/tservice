@@ -15,13 +15,13 @@ describe('Service', () => {
 
   test('correct type', () => {
     collection.add('foo', FooService);
-    const service = collection.get<FooService>('foo');
+    const service = collection.internalGet<FooService>('foo');
     expect(service).toBeInstanceOf(Service);
   });
 
   test('singleton instances', () => {
     collection.add('foo', FooService);
-    const service = collection.get<FooService>('foo');
+    const service = collection.internalGet<FooService>('foo');
     const intanceA = service.create(provider);
     const intanceB = service.create(provider);
     expect(intanceA).toBeDefined();
@@ -31,7 +31,7 @@ describe('Service', () => {
 
   test('scoped instances', () => {
     collection.scoped('foo', FooService);
-    const service = collection.get<FooService>('foo');
+    const service = collection.internalGet<FooService>('foo');
     const intanceA = service.create(provider);
     const intanceB = service.create(provider);
     expect(intanceB).not.toBe(intanceA);
@@ -39,7 +39,7 @@ describe('Service', () => {
 
   test('transient instances', () => {
     collection.transient('foo', FooService);
-    const service = collection.get<FooService>('foo');
+    const service = collection.internalGet<FooService>('foo');
     const intanceA = service.create(provider);
     const intanceB = service.create(provider);
     expect(intanceB).not.toBe(intanceA);

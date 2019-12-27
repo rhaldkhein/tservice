@@ -4,17 +4,15 @@ import IService from './IService';
 
 export default interface ICollection {
 
-  // Private
-
   internalServices(): IService<any>[];
 
-  // Public
+  internalGet<T>(token: string, own?: any): IService<T>;
+
+  // - - -
 
   add<T>(token: string, klass: new () => T, creator?: (provider: IProvider) => T): void;
 
-  configure<T>(token: string, configurator: (provider?: IProvider) => IOption): void;
-
-  get<T>(token: string, own?: any): IService<T>;
+  configure(token: string, configurator: (provider?: IProvider) => IOption): void;
 
   scoped<T>(token: string, klass: new () => T, creator?: (provider: IProvider) => T): void;
 
