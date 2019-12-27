@@ -8,6 +8,8 @@ export default interface ICollection {
 
   internalGet<T>(token: string, own?: any): IService<T>;
 
+  internalSetParent(collection: ICollection): void;
+
   // - - -
 
   add<T>(token: string, klass: new () => T, creator?: (provider: IProvider) => T): void;

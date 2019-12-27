@@ -16,9 +16,28 @@ export default class Container extends EventEmitter implements IContainer {
     this.provider.internalSetCollection(this.collection);
   }
 
+  get internalCollection(): ICollection {
+    return this.collection;
+  }
+
+  get internalProvider(): IProvider {
+    return this.provider;
+  }
+
   build(builder: (collection: ICollection) => void): IContainer {
     builder(this.collection);
     return this;
+  }
+
+  createContainer(): IContainer {
+    const container = new Container();
+    container.parent(this);
+    return container;
+  }
+
+  parent(container: IContainer) {
+    this.collection.internalSetParent(container.internalCollection);
+    this.provider.internalSetParent(container.internalProvider);
   }
 
   async start(): Promise<IProvider> {

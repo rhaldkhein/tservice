@@ -77,7 +77,7 @@ export default class Provider implements IProvider {
 
     }
 
-    return instance;
+    return instance || null;
   }
 
 }

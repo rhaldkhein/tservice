@@ -18,7 +18,7 @@ export default class Collection implements ICollection {
    * Private methods
    */
 
-  private push<T>(token: string, service: IService<T>) {
+  private push<T>(token: string, service: IService<T>): void {
     this.services.push(service);
     this.tokens[token] = this.services.length - 1;
   }
@@ -37,6 +37,10 @@ export default class Collection implements ICollection {
 
   internalServices(): IService<any>[] {
     return this.services;
+  }
+
+  internalSetParent(collection: ICollection): void {
+    this.parent = collection;
   }
 
   /**
@@ -58,10 +62,6 @@ export default class Collection implements ICollection {
     service.klass = klass;
     service.lifetime = Lifetime.SCOPED;
     this.push<T>(token, service);
-  }
-
-  setParent(collection: ICollection) {
-    this.parent = collection;
   }
 
   singleton<T>(token: string, klass: ServiceConstructor, creator?: (provider: IProvider) => T): void {

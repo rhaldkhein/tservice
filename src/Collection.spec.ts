@@ -72,10 +72,10 @@ describe('Collection', () => {
     const parentA = new Collection();
     parentA.singleton('foo', FooService);
     const parentB = new Collection();
-    parentB.setParent(parentA);
+    parentB.internalSetParent(parentA);
     let service = collection.internalGet('foo');
     expect(service).toBeUndefined();
-    collection.setParent(parentB);
+    collection.internalSetParent(parentB);
     service = collection.internalGet('foo');
     expect(service).toBeDefined();
     expect(service.lifetime).toBe(Lifetime.SINGLETON);
@@ -84,7 +84,7 @@ describe('Collection', () => {
   test('only get own service', () => {
     const parent = new Collection();
     parent.add('foo', FooService);
-    collection.setParent(parent);
+    collection.internalSetParent(parent);
     const service = collection.internalGet('foo', true);
     expect(service).toBeUndefined();
   });

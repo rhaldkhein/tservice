@@ -79,6 +79,22 @@ describe('Container', () => {
       });
     });
 
+    test('parent container', () => {
+      const containerA = new Container();
+      containerA.build(collection => {
+        collection.add('foo', FooService);
+      });
+      const containerB = new Container();
+      containerB.build(collection => {
+        collection.add('bar', BarService);
+      });
+      containerB.parent(containerA);
+      const foo = containerB.provider.get<FooService>('foo');
+      expect(foo).toBeInstanceOf(FooService);
+      const bar = containerA.provider.getOrNull<BarService>('bar');
+      expect(bar).toBeNull();
+    });
+
   });
 
 });
