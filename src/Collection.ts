@@ -27,6 +27,14 @@ export default class Collection implements ICollection {
    * Internal methods
    */
 
+  internalGet<T>(token: string, own?: boolean): IService<T> {
+    const service = this.services[this.tokens[token]];
+    if (!service && !own && this.parent) {
+      return this.parent.internalGet(token, own);
+    }
+    return service;
+  }
+
   internalServices(): IService<any>[] {
     return this.services;
   }
@@ -35,7 +43,6 @@ export default class Collection implements ICollection {
    * Public methods
    */
 
-
   add<T>(token: string, klass: ServiceConstructor, creator?: (provider: IProvider) => T): void {
     this.singleton(token, klass, creator);
   }
@@ -43,14 +50,6 @@ export default class Collection implements ICollection {
   configure(token: string, configurator: (provider: IProvider) => IOption): void {
     const service = this.internalGet(token);
     service.configurator = configurator;
-  }
-
-  internalGet<T>(token: string, own?: boolean): IService<T> {
-    const service = this.services[this.tokens[token]];
-    if (!service && !own && this.parent) {
-      return this.parent.internalGet(token, own);
-    }
-    return service;
   }
 
   scoped<T>(token: string, klass: ServiceConstructor, creator?: (provider: IProvider) => T): void {

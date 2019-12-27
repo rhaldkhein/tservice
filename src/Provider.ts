@@ -13,9 +13,9 @@ export default class Provider implements IProvider {
     this.parent = parent;
   }
 
-  createProvider(): IProvider {
-    return new Provider(undefined, this);
-  }
+  /**
+   * Internal methods
+   */
 
   internalResolve<T>(token: string): IService<T> | undefined {
 
@@ -27,6 +27,22 @@ export default class Provider implements IProvider {
       service = this.parent.internalResolve<T>(token);
     }
     return service;
+  }
+
+  internalSetCollection(collection: ICollection): void {
+    this.collection = collection;
+  }
+
+  internalSetParent(parent: IProvider): void {
+    this.parent = parent;
+  }
+
+  /**
+   * Public methods
+   */
+
+  createProvider(): IProvider {
+    return new Provider(undefined, this);
   }
 
   get<T>(token: string): T {
@@ -62,14 +78,6 @@ export default class Provider implements IProvider {
     }
 
     return instance;
-  }
-
-  internalSetCollection(collection: ICollection): void {
-    this.collection = collection;
-  }
-
-  internalSetParent(parent: IProvider): void {
-    this.parent = parent;
   }
 
 }
