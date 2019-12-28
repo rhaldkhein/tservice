@@ -14,7 +14,7 @@ export type ServiceConstructor = new (
   token: string
 ) => any;
 
-export default interface IService<T> {
+export default interface IServiceDescriptor<T> {
 
   creator?: (provider: IProvider) => T;
 

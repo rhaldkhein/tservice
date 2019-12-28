@@ -1,48 +1,31 @@
-import Collection from './Collection';
-import Provider from './Provider';
+import IContainer from './interfaces/IContainer';
+import Container from './Container';
 import Service from './Service';
 
 describe('Service', () => {
 
-  class FooService { }
-  let collection: Collection;
-  let provider: Provider;
+  class FooService extends Service {
+
+    static setup() {
+      console.log('YAY!');
+    }
+
+  }
+
+  let container: IContainer;
 
   beforeEach(() => {
-    collection = new Collection();
-    provider = new Provider();
+    container = new Container();
+    container.build(services => {
+      services.add('foo', FooService);
+    });
   });
 
-  test('correct type', () => {
-    collection.add('foo', FooService);
-    const service = collection.internalGet<FooService>('foo');
-    expect(service).toBeInstanceOf(Service);
-  });
+  test('base', () => {
 
-  test('singleton instances', () => {
-    collection.add('foo', FooService);
-    const service = collection.internalGet<FooService>('foo');
-    const intanceA = service.create(provider);
-    const intanceB = service.create(provider);
-    expect(intanceA).toBeDefined();
-    expect(intanceA).toBeInstanceOf(FooService);
-    expect(intanceB).toBe(intanceA);
-  });
+    const provider = container.createProvider();
+    provider.get('foo');
 
-  test('scoped instances', () => {
-    collection.scoped('foo', FooService);
-    const service = collection.internalGet<FooService>('foo');
-    const intanceA = service.create(provider);
-    const intanceB = service.create(provider);
-    expect(intanceB).not.toBe(intanceA);
-  });
-
-  test('transient instances', () => {
-    collection.transient('foo', FooService);
-    const service = collection.internalGet<FooService>('foo');
-    const intanceA = service.create(provider);
-    const intanceB = service.create(provider);
-    expect(intanceB).not.toBe(intanceA);
   });
 
 });

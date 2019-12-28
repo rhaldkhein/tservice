@@ -1,5 +1,4 @@
 import EvenEmitter from './EventEmitter';
-import Provider from './Provider';
 
 describe('EventEmitter', () => {
 

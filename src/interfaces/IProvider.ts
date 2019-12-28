@@ -1,9 +1,9 @@
-import IService from './IService';
+import IServiceDescriptor from './IServiceDescriptor';
 import ICollection from './ICollection';
 
 export default interface IProvider {
 
-  internalResolve<T>(token: string): IService<T> | undefined;
+  internalResolve<T>(token: string): IServiceDescriptor<T> | undefined;
 
   internalSetCollection(collection: ICollection): void;
 

@@ -11,6 +11,8 @@ export default interface IContainer {
 
   createContainer(): IContainer;
 
+  createProvider(): IProvider;
+
   start(): Promise<IProvider>;
 
 }

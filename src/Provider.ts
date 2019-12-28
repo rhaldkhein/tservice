@@ -1,6 +1,6 @@
 import IProvider from './interfaces/IProvider';
 import ICollection from './interfaces/ICollection';
-import IService, { Lifetime } from './interfaces/IService';
+import IServiceDescriptor, { Lifetime } from './interfaces/IServiceDescriptor';
 
 export default class Provider implements IProvider {
 
@@ -17,9 +17,9 @@ export default class Provider implements IProvider {
    * Internal methods
    */
 
-  internalResolve<T>(token: string): IService<T> | undefined {
+  internalResolve<T>(token: string): IServiceDescriptor<T> | undefined {
 
-    let service: IService<T> | undefined;
+    let service: IServiceDescriptor<T> | undefined;
     if (this.collection) {
       service = this.collection.internalGet<T>(token);
     }

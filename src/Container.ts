@@ -37,6 +37,10 @@ export default class Container extends EventEmitter implements IContainer {
     return container;
   }
 
+  createProvider(): IProvider {
+    return this.internalProvider.createProvider();
+  }
+
   parent(container: IContainer) {
     this.collection.internalSetParent(container.internalCollection);
     this.provider.internalSetParent(container.internalProvider);

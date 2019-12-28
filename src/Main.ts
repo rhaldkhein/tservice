@@ -1,9 +1,8 @@
-export * from './interfaces/IService';
+export * from './interfaces/IServiceDescriptor';
 
 export { default as ICollection } from './interfaces/ICollection';
 export { default as IContainer } from './interfaces/IContainer';
 export { default as IProvider } from './interfaces/IProvider';
-export { default as IService } from './interfaces/IService';
 
 export { default as Collection } from './Collection';
 export { default as Container } from './Container';

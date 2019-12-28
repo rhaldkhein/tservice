@@ -1,12 +1,12 @@
 import IProvider from './IProvider';
 import IOption from './IOption';
-import IService from './IService';
+import IServiceDescriptor from './IServiceDescriptor';
 
 export default interface ICollection {
 
-  internalServices(): IService<any>[];
+  internalServices(): IServiceDescriptor<any>[];
 
-  internalGet<T>(token: string, own?: any): IService<T>;
+  internalGet<T>(token: string, own?: any): IServiceDescriptor<T>;
 
   internalSetParent(collection: ICollection): void;
 
