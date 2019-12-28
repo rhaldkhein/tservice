@@ -1,15 +1,8 @@
-import IProvider from './interfaces/IProvider';
-
-type Handler = (provider: IProvider) => Promise<any> | any;
+type Handler = (provider: any) => Promise<any> | any;
 
 export default class EventEmitter {
 
   private events: { [event: string]: Handler[]; } = {};
-  public provider: IProvider;
-
-  constructor(provider: IProvider) {
-    this.provider = provider;
-  }
 
   on(event: string, handler: Handler): void {
     let handlers = this.events[event];
@@ -29,12 +22,12 @@ export default class EventEmitter {
     }
   }
 
-  async emit(event: string): Promise<any> {
+  async emit<T>(event: string, arg?: T): Promise<any> {
     let handlers = this.events[event];
     if (handlers) {
       return Promise.all(
         handlers.map(handler => {
-          return handler.call(this, this.provider);
+          return handler.call(this, arg);
         })
       );
     }

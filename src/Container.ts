@@ -8,11 +8,13 @@ import Provider from './Provider';
 export default class Container extends EventEmitter implements IContainer {
 
   private collection: ICollection;
+  private provider: IProvider;
   isReady: boolean = false;
 
   constructor() {
-    super(new Provider());
+    super();
     this.collection = new Collection();
+    this.provider = new Provider(this.collection);
     this.provider.internalSetCollection(this.collection);
   }
 
@@ -42,9 +44,9 @@ export default class Container extends EventEmitter implements IContainer {
 
   async start(): Promise<IProvider> {
     if (this.isReady) return Promise.resolve(this.provider);
-    await this.emit('start');
+    await this.emit('start', this.provider);
     this.isReady = true;
-    await this.emit('ready');
+    await this.emit('ready', this.provider);
     return this.provider;
   }
 

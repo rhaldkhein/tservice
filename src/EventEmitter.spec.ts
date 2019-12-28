@@ -5,7 +5,7 @@ describe('EventEmitter', () => {
 
   test('async', async (done) => {
 
-    const em = new EvenEmitter(new Provider());
+    const em = new EvenEmitter();
 
     const foo = jest.fn();
     const bar = jest.fn();
