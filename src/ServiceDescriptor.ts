@@ -1,8 +1,9 @@
 import IProvider from './interfaces/IProvider';
 import IOption from './interfaces/IOption';
-import IServiceDescriptor, { Lifetime, ServiceConstructor } from './interfaces/IServiceDescriptor';
+import IServiceConstructor from './interfaces/IServiceConstructor';
+import IServiceDescriptor, { Lifetime } from './interfaces/IServiceDescriptor';
 
-export default class Service<T> implements IServiceDescriptor<T> {
+export default class ServiceDescriptor<T> implements IServiceDescriptor<T> {
 
   creator?: (provider: IProvider) => T;
 
@@ -10,7 +11,7 @@ export default class Service<T> implements IServiceDescriptor<T> {
 
   enabled: boolean = true;
 
-  klass?: ServiceConstructor;
+  klass?: IServiceConstructor;
 
   lifetime: Lifetime = Lifetime.SINGLETON;
 

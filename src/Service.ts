@@ -1,18 +1,23 @@
+import IProvider from './interfaces/IProvider';
 
 export default abstract class Service {
 
-  static __service__: '__service__';
+  // Use to verify service
+  static __service__: boolean = true;
 
-  // Trigger when container is mounted to new parent
-  static mount(): Promise<any> | any { }
+  // Trigger when the container is linked to new parent
+  static link(_provider: IProvider, _token: string): Promise<any> | any { }
+
+  // Trigger when a child container is mounted (this as a parent)
+  static mount(_provider: IProvider, _token: string): Promise<any> | any { }
 
   // Trigger when container is completely ready
-  static ready(): Promise<any> | any { }
+  static ready(_provider: IProvider, _token: string): Promise<any> | any { }
 
   // Trigger when the service it added to container
-  static setup(): Promise<any> | any { }
+  static setup(_token: string): void { }
 
   // Trigger when container is starting
-  static start(): Promise<any> | any { }
+  static start(_provider: IProvider, _token: string): Promise<any> | any { }
 
 }

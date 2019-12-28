@@ -2,7 +2,6 @@ import Collection from './Collection';
 import Service from './ServiceDescriptor';
 import { Lifetime } from './interfaces/IServiceDescriptor';
 
-
 describe('Collection', () => {
 
   class FooService { }

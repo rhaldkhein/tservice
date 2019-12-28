@@ -1,30 +1,15 @@
 import Provider from './Provider';
 import Container from './Container';
 
-class FooService {
-  static run(): string {
-    return 'run';
-  }
-}
-class BarService {
-  static run(): string {
-    return 'run';
-  }
-  static walk(): string {
-    return 'walk';
-  }
-}
-class BazService {
-  static walk(): string {
-    return 'walk';
-  }
-}
+class FooService { }
+class BarService { }
+class BazService { }
 
 describe('Container', () => {
 
   test('instance', () => {
     const container = new Container();
-    expect(container.provider).toBeInstanceOf(Provider);
+    expect(container.internalProvider).toBeInstanceOf(Provider);
   });
 
   test('build and resolve', () => {
@@ -35,8 +20,8 @@ describe('Container', () => {
     container.build((collection) => {
       collection.add('bar', BarService);
     });
-    const foo = container.provider.get<FooService>('foo');
-    const bar = container.provider.get<BarService>('bar');
+    const foo = container.internalProvider.get<FooService>('foo');
+    const bar = container.internalProvider.get<BarService>('bar');
     expect(foo).toBeInstanceOf(FooService);
     expect(bar).toBeInstanceOf(BarService);
   });
@@ -89,9 +74,9 @@ describe('Container', () => {
         collection.add('bar', BarService);
       });
       containerB.parent(containerA);
-      const foo = containerB.provider.get<FooService>('foo');
+      const foo = containerB.internalProvider.get<FooService>('foo');
       expect(foo).toBeInstanceOf(FooService);
-      const bar = containerA.provider.getOrNull<BarService>('bar');
+      const bar = containerA.internalProvider.getOrNull<BarService>('bar');
       expect(bar).toBeNull();
     });
 

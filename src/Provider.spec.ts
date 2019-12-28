@@ -3,7 +3,6 @@ import IOption from './interfaces/IOption';
 import Collection from './Collection';
 import Provider from './Provider';
 
-
 describe('Provider', () => {
 
   class Singleton {

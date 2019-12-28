@@ -1,6 +1,6 @@
 import Collection from './Collection';
 import Provider from './Provider';
-import Service from './ServiceDescriptor';
+import ServiceDescriptor from './ServiceDescriptor';
 
 describe('Service', () => {
 
@@ -16,7 +16,7 @@ describe('Service', () => {
   test('correct type', () => {
     collection.add('foo', FooService);
     const service = collection.internalGet<FooService>('foo');
-    expect(service).toBeInstanceOf(Service);
+    expect(service).toBeInstanceOf(ServiceDescriptor);
   });
 
   test('singleton instances', () => {

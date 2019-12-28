@@ -7,6 +7,7 @@ describe('Main', () => {
     expect(Main.Container).toBeDefined();
     expect(Main.Provider).toBeDefined();
     expect(Main.Lifetime).toBeDefined();
+    expect(Main.Service).toBeDefined();
   });
 
 });
