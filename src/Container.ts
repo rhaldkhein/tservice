@@ -1,9 +1,9 @@
-import IContainer from './interfaces/IContainer';
-import ICollection from './interfaces/ICollection';
-import IProvider from './interfaces/IProvider';
-import EventEmitter from './EventEmitter';
-import Collection from './Collection';
-import Provider from './Provider';
+import IContainer from "./interfaces/IContainer";
+import ICollection from "./interfaces/ICollection";
+import IProvider from "./interfaces/IProvider";
+import EventEmitter from "./EventEmitter";
+import Collection from "./Collection";
+import Provider from "./Provider";
 
 export default class Container extends EventEmitter implements IContainer {
 
@@ -32,19 +32,19 @@ export default class Container extends EventEmitter implements IContainer {
         const klass = service.klass;
         if (klass && klass.__service__ === true) {
           switch (method) {
-            case 'start':
+            case "start":
               if (klass.start)
                 return klass.start(this.provider, service.token);
               break;
-            case 'ready':
+            case "ready":
               if (klass.ready)
                 return klass.ready(this.provider, service.token);
               break;
-            case 'mount':
+            case "mount":
               if (klass.mount)
                 return klass.mount(this.provider, service.token);
               break;
-            case 'link':
+            case "link":
               if (klass.link)
                 return klass.link(this.provider, service.token);
               break;
@@ -78,19 +78,19 @@ export default class Container extends EventEmitter implements IContainer {
   async parent(container: IContainer): Promise<any> {
     this.collection.internalSetParent(container.internalCollection);
     this.provider.internalSetParent(container.internalProvider);
-    await this.internalInvoke('link');
-    await this.emit('link');
-    await container.internalInvoke('mount');
-    return container.internalEmit('mount');
+    await this.internalInvoke("link");
+    await this.emit("link", this.provider);
+    await container.internalInvoke("mount");
+    return container.internalEmit("mount");
   }
 
   async start(): Promise<IProvider> {
     if (this.isReady) return Promise.resolve(this.provider);
-    await this.internalInvoke('start');
-    await this.emit('start', this.provider);
+    await this.internalInvoke("start");
+    await this.emit("start", this.provider);
     this.isReady = true;
-    await this.internalInvoke('ready');
-    await this.emit('ready', this.provider);
+    await this.internalInvoke("ready");
+    await this.emit("ready", this.provider);
     return this.provider;
   }
 

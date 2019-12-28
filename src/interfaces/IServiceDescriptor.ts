@@ -1,6 +1,6 @@
-import IProvider from './IProvider';
-import IOption from './IOption';
-import IServiceConstructor from './IServiceConstructor';
+import IProvider from "./IProvider";
+import IOption from "./IOption";
+import IServiceConstructor from "./IServiceConstructor";
 
 export enum Lifetime {
   CONCRETE = 0,

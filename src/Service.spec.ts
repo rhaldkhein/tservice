@@ -1,13 +1,13 @@
-import IContainer from './interfaces/IContainer';
-import IProvider from './interfaces/IProvider';
-import Container from './Container';
-import Service from './Service';
-import Provider from './Provider';
+import IContainer from "./interfaces/IContainer";
+import IProvider from "./interfaces/IProvider";
+import Container from "./Container";
+import Service from "./Service";
+import Provider from "./Provider";
 
-describe('Service', () => {
+describe("Service", () => {
 
 
-  describe('Static Event Hooks', () => {
+  describe("Static Event Hooks", () => {
 
     let container: IContainer;
 
@@ -15,62 +15,62 @@ describe('Service', () => {
       container = new Container();
     });
 
-    test('setup', () => {
+    test("setup", () => {
       const funcMock = jest.fn();
       class FooService extends Service {
         static setup(token: string) {
-          expect(token).toBe('foo');
+          expect(token).toBe("foo");
           funcMock();
         }
       }
-      container.internalCollection.add('foo', FooService);
-      container.createProvider().get('foo');
+      container.internalCollection.add("foo", FooService);
+      container.createProvider().get("foo");
       expect(funcMock).toBeCalled();
     });
 
-    test('start and ready', async (done) => {
+    test("start and ready", async (done) => {
       const funcMockStart = jest.fn();
       const funcMockReady = jest.fn();
       class FooService extends Service {
         static start(provider: IProvider, token: string) {
           expect(provider).toBeInstanceOf(Provider);
-          expect(token).toBe('foo');
+          expect(token).toBe("foo");
           funcMockStart();
         }
         static ready(provider: IProvider, token: string) {
           expect(provider).toBeInstanceOf(Provider);
-          expect(token).toBe('foo');
+          expect(token).toBe("foo");
           funcMockReady();
         }
       }
-      container.internalCollection.add('foo', FooService);
+      container.internalCollection.add("foo", FooService);
       await container.start();
       expect(funcMockStart).toBeCalled();
       expect(funcMockReady).toBeCalled();
       done();
     });
 
-    test('link and mount', async (done) => {
+    test("link and mount", async (done) => {
       const funcMockMount = jest.fn();
       const funcMockLink = jest.fn();
       class ParentService extends Service {
         static mount(provider: IProvider, token: string) {
           expect(provider).toBeInstanceOf(Provider);
-          expect(token).toBe('parent');
+          expect(token).toBe("parent");
           funcMockMount();
         }
       }
       class ChildService extends Service {
         static link(provider: IProvider, token: string) {
           expect(provider).toBeInstanceOf(Provider);
-          expect(token).toBe('child');
+          expect(token).toBe("child");
           funcMockLink();
         }
       }
       const parentContainer = container;
-      parentContainer.internalCollection.add('parent', ParentService);
+      parentContainer.internalCollection.add("parent", ParentService);
       const childContainer = new Container();
-      childContainer.internalCollection.add('child', ChildService);
+      childContainer.internalCollection.add("child", ChildService);
       await childContainer.parent(parentContainer);
       expect(funcMockLink).toBeCalled();
       expect(funcMockMount).toBeCalled();

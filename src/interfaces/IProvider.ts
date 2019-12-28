@@ -1,5 +1,5 @@
-import IServiceDescriptor from './IServiceDescriptor';
-import ICollection from './ICollection';
+import IServiceDescriptor from "./IServiceDescriptor";
+import ICollection from "./ICollection";
 
 export default interface IProvider {
 

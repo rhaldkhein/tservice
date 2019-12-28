@@ -1,8 +1,8 @@
-import * as Main from './Main';
+import * as Main from "./Main";
 
-describe('Main', () => {
+describe("Main", () => {
 
-  test('good exports', () => {
+  test("good exports", () => {
     expect(Main.Collection).toBeDefined();
     expect(Main.Container).toBeDefined();
     expect(Main.Provider).toBeDefined();

@@ -1,7 +1,7 @@
-import IProvider from './interfaces/IProvider';
-import IOption from './interfaces/IOption';
-import IServiceConstructor from './interfaces/IServiceConstructor';
-import IServiceDescriptor, { Lifetime } from './interfaces/IServiceDescriptor';
+import IProvider from "./interfaces/IProvider";
+import IOption from "./interfaces/IOption";
+import IServiceConstructor from "./interfaces/IServiceConstructor";
+import IServiceDescriptor, { Lifetime } from "./interfaces/IServiceDescriptor";
 
 export default class ServiceDescriptor<T> implements IServiceDescriptor<T> {
 
@@ -30,7 +30,7 @@ export default class ServiceDescriptor<T> implements IServiceDescriptor<T> {
   create(provider: IProvider): T | null {
 
     if (!this.enabled)
-      throw new Error('Unable to create disabled service');
+      throw new Error("Unable to create disabled service");
 
     // Check instance
     let instance: T | undefined = this.value;

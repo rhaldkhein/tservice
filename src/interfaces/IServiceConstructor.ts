@@ -1,5 +1,5 @@
-import IProvider from './IProvider';
-import IOption from './IOption';
+import IProvider from "./IProvider";
+import IOption from "./IOption";
 
 type THandlerProvider = (_provider: IProvider, _token: string) => Promise<any> | any;
 type THandlerToken = (_token: string) => Promise<any> | any;

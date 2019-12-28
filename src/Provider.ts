@@ -1,6 +1,6 @@
-import IProvider from './interfaces/IProvider';
-import ICollection from './interfaces/ICollection';
-import IServiceDescriptor, { Lifetime } from './interfaces/IServiceDescriptor';
+import IProvider from "./interfaces/IProvider";
+import ICollection from "./interfaces/ICollection";
+import IServiceDescriptor, { Lifetime } from "./interfaces/IServiceDescriptor";
 
 export default class Provider implements IProvider {
 
@@ -47,7 +47,7 @@ export default class Provider implements IProvider {
 
   get<T>(token: string): T {
     let instance = this.getOrNull<T>(token);
-    if (!instance) throw new Error('Missing service: ' + token);
+    if (!instance) throw new Error("Missing service: " + token);
     return instance;
   }
 
@@ -64,7 +64,7 @@ export default class Provider implements IProvider {
 
       // Lifetime check
       if (!this.parent && service.lifetime > Lifetime.SINGLETON) {
-        throw new Error('Singleton should not require scoped or transient');
+        throw new Error("Singleton should not require scoped or transient");
       }
 
       // Create instance

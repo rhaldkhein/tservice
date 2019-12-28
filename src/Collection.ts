@@ -1,9 +1,9 @@
-import ICollection from './interfaces/ICollection';
-import IProvider from './interfaces/IProvider';
-import IOption from './interfaces/IOption';
-import IServiceConstructor from './interfaces/IServiceConstructor';
-import IServiceDescriptor, { Lifetime } from './interfaces/IServiceDescriptor';
-import ServiceDescriptor from './ServiceDescriptor';
+import ICollection from "./interfaces/ICollection";
+import IProvider from "./interfaces/IProvider";
+import IOption from "./interfaces/IOption";
+import IServiceConstructor from "./interfaces/IServiceConstructor";
+import IServiceDescriptor, { Lifetime } from "./interfaces/IServiceDescriptor";
+import ServiceDescriptor from "./ServiceDescriptor";
 
 export default class Collection implements ICollection {
 

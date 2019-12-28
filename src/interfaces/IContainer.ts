@@ -1,5 +1,5 @@
-import ICollection from './ICollection';
-import IProvider from './IProvider';
+import ICollection from "./ICollection";
+import IProvider from "./IProvider";
 
 export default interface IContainer {
 

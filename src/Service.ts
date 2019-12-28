@@ -1,4 +1,4 @@
-import IProvider from './interfaces/IProvider';
+import IProvider from "./interfaces/IProvider";
 
 export default abstract class Service {
 
