@@ -1,7 +1,7 @@
 /* tslint:disable max-classes-per-file */
 
 import IProvider from "./interfaces/IProvider";
-import IOption from "./interfaces/IOption";
+import IOption from "./interfaces/IOptions";
 import Collection from "./Collection";
 import Provider from "./Provider";
 

@@ -1,6 +1,6 @@
 import ICollection from "./interfaces/ICollection";
 import IProvider from "./interfaces/IProvider";
-import IOption from "./interfaces/IOption";
+import IOptions from "./interfaces/IOptions";
 import IServiceConstructor from "./interfaces/IServiceConstructor";
 import IServiceDescriptor, { Lifetime } from "./interfaces/IServiceDescriptor";
 import ServiceDescriptor from "./ServiceDescriptor";
@@ -43,7 +43,7 @@ export default class Collection implements ICollection {
     this.singleton(token, klass, creator);
   }
 
-  public configure(token: string, configurator: (provider: IProvider) => IOption): void {
+  public configure(token: string, configurator: (provider: IProvider) => IOptions): void {
     const service = this.internalGet(token);
     service.configurator = configurator;
   }

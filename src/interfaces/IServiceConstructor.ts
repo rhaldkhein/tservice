@@ -1,14 +1,14 @@
 /* tslint:disable variable-name */
 
 import IProvider from "./IProvider";
-import IOption from "./IOption";
+import IOptions from "./IOptions";
 
 type THandlerProvider = (_provider: IProvider, _token: string) => Promise<any> | any;
 type THandlerToken = (_token: string) => Promise<any> | any;
 
 export type TServiceConstructor = new (
   p: IProvider,
-  option: IOption,
+  option: IOptions,
   token: string
 ) => any;
 
