@@ -1,5 +1,5 @@
 import IProvider from "./interfaces/IProvider";
-import IOption from "./interfaces/IOption";
+import IOptions from "./interfaces/IOptions";
 import IServiceConstructor from "./interfaces/IServiceConstructor";
 import IServiceDescriptor, { Lifetime } from "./interfaces/IServiceDescriptor";
 
@@ -7,7 +7,7 @@ export default class ServiceDescriptor<T> implements IServiceDescriptor<T> {
 
   public creator?: (provider: IProvider) => T;
 
-  public configurator?: (provider?: IProvider) => IOption;
+  public configurator?: (provider?: IProvider) => IOptions;
 
   public enabled: boolean = true;
 

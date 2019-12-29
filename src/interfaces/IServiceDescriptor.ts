@@ -1,5 +1,5 @@
 import IProvider from "./IProvider";
-import IOption from "./IOption";
+import IOptions from "./IOptions";
 import IServiceConstructor from "./IServiceConstructor";
 
 export enum Lifetime {
@@ -13,7 +13,7 @@ export default interface IServiceDescriptor<T> {
 
   creator?: (provider: IProvider) => T;
 
-  configurator?: (provider: IProvider) => IOption;
+  configurator?: (provider: IProvider) => IOptions;
 
   enabled: boolean;
 
