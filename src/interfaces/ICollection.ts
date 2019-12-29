@@ -4,7 +4,7 @@ import IServiceDescriptor from "./IServiceDescriptor";
 
 export default interface ICollection {
 
-  readonly internalServices: IServiceDescriptor<any>[];
+  readonly internalServices: Array<IServiceDescriptor<any>>;
 
   internalGet<T>(token: string, own?: any): IServiceDescriptor<T>;
 

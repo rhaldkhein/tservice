@@ -5,19 +5,19 @@ import IServiceDescriptor, { Lifetime } from "./interfaces/IServiceDescriptor";
 
 export default class ServiceDescriptor<T> implements IServiceDescriptor<T> {
 
-  creator?: (provider: IProvider) => T;
+  public creator?: (provider: IProvider) => T;
 
-  configurator?: (provider?: IProvider) => IOption;
+  public configurator?: (provider?: IProvider) => IOption;
 
-  enabled: boolean = true;
+  public enabled: boolean = true;
 
-  klass?: IServiceConstructor;
+  public klass?: IServiceConstructor;
 
-  lifetime: Lifetime = Lifetime.SINGLETON;
+  public lifetime: Lifetime = Lifetime.SINGLETON;
 
-  token: string;
+  public token: string;
 
-  value?: T;
+  public value?: T;
 
   constructor(token: string) {
     this.token = token;
@@ -27,14 +27,15 @@ export default class ServiceDescriptor<T> implements IServiceDescriptor<T> {
    * Methods
    */
 
-  create(provider: IProvider): T | null {
+  public create(provider: IProvider): T | null {
 
-    if (!this.enabled)
+    if (!this.enabled) {
       throw new Error("Unable to create disabled service");
+    }
 
     // Check instance
     let instance: T | undefined = this.value;
-    if (instance) return instance;
+    if (instance) { return instance; }
 
     // Create instance
     if (this.creator) {

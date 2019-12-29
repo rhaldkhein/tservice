@@ -9,7 +9,7 @@ export default interface IProvider {
 
   internalSetParent(parent: IProvider): void;
 
-  // - - - 
+  // - - -
 
   createProvider(): IProvider;
 

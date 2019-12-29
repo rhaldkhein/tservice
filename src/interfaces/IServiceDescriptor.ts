@@ -6,7 +6,7 @@ export enum Lifetime {
   CONCRETE = 0,
   SINGLETON = 1,
   SCOPED = 2,
-  TRANSIENT = 3,
+  TRANSIENT = 3
 }
 
 export default interface IServiceDescriptor<T> {

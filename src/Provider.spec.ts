@@ -1,3 +1,5 @@
+/* tslint:disable max-classes-per-file */
+
 import IProvider from "./interfaces/IProvider";
 import IOption from "./interfaces/IOption";
 import Collection from "./Collection";

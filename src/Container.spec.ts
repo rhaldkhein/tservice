@@ -2,7 +2,9 @@ import Provider from "./Provider";
 import Container from "./Container";
 
 class FooService { }
+// tslint:disable-next-line: max-classes-per-file
 class BarService { }
+// tslint:disable-next-line: max-classes-per-file
 class BazService { }
 
 describe("Container", () => {
@@ -32,7 +34,7 @@ describe("Container", () => {
 
     beforeEach(() => {
       container = new Container();
-      container.build(collection => {
+      container.build((collection) => {
         collection.add("foo", FooService);
         collection.scoped("bar", BarService);
         collection.transient("baz", BazService);
@@ -40,7 +42,7 @@ describe("Container", () => {
     });
 
     test("start method", (done) => {
-      container.start().then(provider => {
+      container.start().then((provider) => {
         expect(provider).toBeInstanceOf(Provider);
         done();
       });
@@ -49,11 +51,11 @@ describe("Container", () => {
     test("start and ready events", (done) => {
       const start = jest.fn();
       const ready = jest.fn();
-      container.on("start", provider => {
+      container.on("start", (provider) => {
         expect(provider).toBeInstanceOf(Provider);
         start();
       });
-      container.on("ready", provider => {
+      container.on("ready", (provider) => {
         expect(provider).toBeInstanceOf(Provider);
         ready();
       });
@@ -66,11 +68,11 @@ describe("Container", () => {
 
     test("parent container", () => {
       const containerA = new Container();
-      containerA.build(collection => {
+      containerA.build((collection) => {
         collection.add("foo", FooService);
       });
       const containerB = new Container();
-      containerB.build(collection => {
+      containerB.build((collection) => {
         collection.add("bar", BarService);
       });
       containerB.parent(containerA);

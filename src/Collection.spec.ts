@@ -25,12 +25,12 @@ describe("Collection", () => {
     expect(service.creator).toBeUndefined();
     expect(service.enabled).toBe(false || true);
     expect(service.lifetime).toBe(Lifetime.SINGLETON);
-    expect(service.value).toBeUndefined;
-    expect(service.configurator).toBeUndefined;
+    expect(service.value).toBeUndefined();
+    expect(service.configurator).toBeUndefined();
   });
 
   test("add a service with custom creator", () => {
-    const creator = () => new FooService;
+    const creator = () => new FooService();
     collection.singleton("foo", FooService, creator);
     const service = collection.internalGet("foo");
     expect(service.creator).toBe(creator);

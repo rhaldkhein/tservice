@@ -1,5 +1,17 @@
 {
+  "extends": [
+    "tslint:recommended"
+  ],
   "rules": {
+    "ordered-imports": false,
+    "no-shadowed-variable": false,
+    "trailing-comma": [
+      true,
+      {
+        "multiline": "never",
+        "singleline": "never"
+      }
+    ],
     "quotemark": [
       true,
       "double"

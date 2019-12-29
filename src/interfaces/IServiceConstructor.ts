@@ -1,3 +1,5 @@
+/* tslint:disable variable-name */
+
 import IProvider from "./IProvider";
 import IOption from "./IOption";
 

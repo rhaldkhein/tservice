@@ -8,7 +8,8 @@
     "build": "tsc",
     "watch": "jest --watch",
     "play": "ts-node _play",
-    "test": "jest"
+    "test": "jest",
+    "lint": "tslint --project ."
   },
   "repository": {
     "type": "git",

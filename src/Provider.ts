@@ -17,7 +17,7 @@ export default class Provider implements IProvider {
    * Internal methods
    */
 
-  internalResolve<T>(token: string): IServiceDescriptor<T> | undefined {
+  public internalResolve<T>(token: string): IServiceDescriptor<T> | undefined {
 
     let service: IServiceDescriptor<T> | undefined;
     if (this.collection) {
@@ -29,11 +29,11 @@ export default class Provider implements IProvider {
     return service;
   }
 
-  internalSetCollection(collection: ICollection): void {
+  public internalSetCollection(collection: ICollection): void {
     this.collection = collection;
   }
 
-  internalSetParent(parent: IProvider): void {
+  public internalSetParent(parent: IProvider): void {
     this.parent = parent;
   }
 
@@ -41,24 +41,28 @@ export default class Provider implements IProvider {
    * Public methods
    */
 
-  createProvider(): IProvider {
+  public createProvider(): IProvider {
     return new Provider(undefined, this);
   }
 
-  get<T>(token: string): T {
-    let instance = this.getOrNull<T>(token);
-    if (!instance) throw new Error("Missing service: " + token);
+  public get<T>(token: string): T {
+    const instance = this.getOrNull<T>(token);
+    if (!instance) {
+      throw new Error("Missing service: " + token);
+    }
     return instance;
   }
 
-  getOrNull<T>(token: string): T | null {
+  public getOrNull<T>(token: string): T | null {
 
     // Find cache service
     let instance: T | null = this.instances[token];
-    if (instance) return instance;
+    if (instance) {
+      return instance;
+    }
 
     // Get service from collection in here
-    let service = this.internalResolve<T>(token);
+    const service = this.internalResolve<T>(token);
 
     if (service) {
 

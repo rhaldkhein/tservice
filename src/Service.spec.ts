@@ -1,3 +1,5 @@
+/* tslint:disable max-classes-per-file */
+
 import IContainer from "./interfaces/IContainer";
 import IProvider from "./interfaces/IProvider";
 import Container from "./Container";
@@ -5,7 +7,6 @@ import Service from "./Service";
 import Provider from "./Provider";
 
 describe("Service", () => {
-
 
   describe("Static Event Hooks", () => {
 
@@ -18,7 +19,7 @@ describe("Service", () => {
     test("setup", () => {
       const funcMock = jest.fn();
       class FooService extends Service {
-        static setup(token: string) {
+        public static setup(token: string) {
           expect(token).toBe("foo");
           funcMock();
         }
@@ -32,12 +33,12 @@ describe("Service", () => {
       const funcMockStart = jest.fn();
       const funcMockReady = jest.fn();
       class FooService extends Service {
-        static start(provider: IProvider, token: string) {
+        public static start(provider: IProvider, token: string) {
           expect(provider).toBeInstanceOf(Provider);
           expect(token).toBe("foo");
           funcMockStart();
         }
-        static ready(provider: IProvider, token: string) {
+        public static ready(provider: IProvider, token: string) {
           expect(provider).toBeInstanceOf(Provider);
           expect(token).toBe("foo");
           funcMockReady();
@@ -54,14 +55,14 @@ describe("Service", () => {
       const funcMockMount = jest.fn();
       const funcMockLink = jest.fn();
       class ParentService extends Service {
-        static mount(provider: IProvider, token: string) {
+        public static mount(provider: IProvider, token: string) {
           expect(provider).toBeInstanceOf(Provider);
           expect(token).toBe("parent");
           funcMockMount();
         }
       }
       class ChildService extends Service {
-        static link(provider: IProvider, token: string) {
+        public static link(provider: IProvider, token: string) {
           expect(provider).toBeInstanceOf(Provider);
           expect(token).toBe("child");
           funcMockLink();
