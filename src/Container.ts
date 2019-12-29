@@ -16,7 +16,7 @@ export default class Container extends EventEmitter implements IContainer {
     super();
     this.collection = new Collection();
     this.provider = new Provider(this.collection);
-    this.provider.internalSetCollection(this.collection);
+    this.collection.add("core", Container, () => this);
   }
 
   public get internalCollection(): ICollection {
