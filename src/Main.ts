@@ -1,5 +1,3 @@
-export * from "./interfaces/IServiceDescriptor";
-
 export { default as ICollection } from "./interfaces/ICollection";
 export { default as IContainer } from "./interfaces/IContainer";
 export { default as IProvider } from "./interfaces/IProvider";
