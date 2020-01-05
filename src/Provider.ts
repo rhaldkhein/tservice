@@ -2,11 +2,29 @@ import IProvider from "./interfaces/IProvider";
 import ICollection from "./interfaces/ICollection";
 import IServiceDescriptor, { Lifetime } from "./interfaces/IServiceDescriptor";
 
+interface IKeyValPair {
+  [token: string]: any;
+}
+
 export default class Provider implements IProvider {
+
+  public static mock(deps: IKeyValPair): IProvider {
+    const provider = new Provider();
+    for (const key in deps) {
+      if (deps.hasOwnProperty(key)) {
+        const value = deps[key];
+        if (typeof value === "function") {
+          deps[key] = value();
+        }
+      }
+    }
+    provider.internalSetInstances(deps);
+    return provider;
+  }
 
   private collection?: ICollection;
   private parent?: IProvider;
-  private instances: { [token: string]: any } = {};
+  private instances: IKeyValPair = {};
 
   constructor(collection?: ICollection, parent?: IProvider) {
     this.collection = collection;
@@ -35,6 +53,10 @@ export default class Provider implements IProvider {
 
   public internalSetParent(parent: IProvider): void {
     this.parent = parent;
+  }
+
+  public internalSetInstances(instances: IKeyValPair): void {
+    this.instances = instances;
   }
 
   /**

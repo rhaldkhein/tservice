@@ -121,4 +121,18 @@ describe("Provider", () => {
     }).toThrowError();
   });
 
+  test("mock", () => {
+    const foo = { a: 1 };
+    const mock = Provider.mock({
+      foo,
+      bar() {
+        return 1;
+      }
+    });
+    const fooService = mock.get("foo");
+    const barService = mock.get("bar");
+    expect(fooService).toBe(foo);
+    expect(barService).toBe(1);
+  });
+
 });
