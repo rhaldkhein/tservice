@@ -37,9 +37,19 @@ export default class Container extends EventEmitter implements IContainer {
         const klass = service.klass;
         if (klass && klass.__service__ === true) {
           switch (method) {
+            case "beforeStart":
+              if (klass.beforeStart) {
+                return klass.beforeStart(this.provider, service.token);
+              }
+              break;
             case "start":
               if (klass.start) {
                 return klass.start(this.provider, service.token);
+              }
+              break;
+            case "beforeReady":
+              if (klass.beforeReady) {
+                return klass.beforeReady(this.provider, service.token);
               }
               break;
             case "ready":
@@ -91,9 +101,11 @@ export default class Container extends EventEmitter implements IContainer {
 
   public async start(): Promise<IProvider> {
     if (this.isReady) { return Promise.resolve(this.provider); }
+    await this.emit("beforeStart", this.provider);
     await this.internalInvoke("start");
     await this.emit("start", this.provider);
     this.isReady = true;
+    await this.emit("beforeReady", this.provider);
     await this.internalInvoke("ready");
     await this.emit("ready", this.provider);
     return this.provider;

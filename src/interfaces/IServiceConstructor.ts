@@ -16,7 +16,9 @@ export default interface IServiceConstructor extends TServiceConstructor {
   __service__?: boolean;
   link?: THandlerProvider;
   mount?: THandlerProvider;
+  beforeReady?: THandlerProvider;
   ready?: THandlerProvider;
   setup?: THandlerToken;
+  beforeStart?: THandlerProvider;
   start?: THandlerProvider;
 }
