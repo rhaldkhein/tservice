@@ -1,6 +1,6 @@
-type Handler = (provider: any) => Promise<any> | any;
+import IEventEmitter, { Handler } from "./interfaces/IEventEmitter";
 
-export default class EventEmitter {
+export default class EventEmitter implements IEventEmitter {
 
   private events: { [event: string]: Handler[]; } = {};
 
