@@ -1,7 +1,8 @@
 import ICollection from "./ICollection";
 import IProvider from "./IProvider";
+import IEventEmitter from "./IEventEmitter";
 
-export default interface IContainer {
+export default interface IContainer extends IEventEmitter {
 
   readonly internalProvider: IProvider;
 
