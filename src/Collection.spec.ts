@@ -62,7 +62,7 @@ describe("Collection", () => {
 
   test("add a concrete service", () => {
     const creator = () => ({ foo: "bar" });
-    collection.singleton("foo", FooService, creator);
+    collection.singleton("foo", undefined, creator);
     const service = collection.internalGet("foo");
     expect(service.creator).toBe(creator);
   });
