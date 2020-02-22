@@ -13,14 +13,14 @@ export default interface ICollection {
 
   // - - -
 
-  add<T>(token: string, klass: IServiceConstructor, creator?: (provider: IProvider) => T): void;
+  add<T>(token: string, klass?: IServiceConstructor, creator?: (provider: IProvider) => T): void;
 
   configure(token: string, configurator: (provider?: IProvider) => IOptions): void;
 
-  scoped<T>(token: string, klass: IServiceConstructor, creator?: (provider: IProvider) => T): void;
+  scoped<T>(token: string, klass?: IServiceConstructor, creator?: (provider: IProvider) => T): void;
 
-  singleton<T>(token: string, klass: IServiceConstructor, creator?: (provider: IProvider) => T): void;
+  singleton<T>(token: string, klass?: IServiceConstructor, creator?: (provider: IProvider) => T): void;
 
-  transient<T>(token: string, klass: IServiceConstructor, creator?: (provider: IProvider) => T): void;
+  transient<T>(token: string, klass?: IServiceConstructor, creator?: (provider: IProvider) => T): void;
 
 }

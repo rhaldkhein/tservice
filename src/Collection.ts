@@ -39,7 +39,7 @@ export default class Collection implements ICollection {
    * Public methods
    */
 
-  public add<T>(token: string, klass: IServiceConstructor, creator?: (provider: IProvider) => T): void {
+  public add<T>(token: string, klass?: IServiceConstructor, creator?: (provider: IProvider) => T): void {
     this.singleton(token, klass, creator);
   }
 
@@ -48,7 +48,7 @@ export default class Collection implements ICollection {
     service.configurator = configurator;
   }
 
-  public scoped<T>(token: string, klass: IServiceConstructor, creator?: (provider: IProvider) => T): void {
+  public scoped<T>(token: string, klass?: IServiceConstructor, creator?: (provider: IProvider) => T): void {
     const service = new ServiceDescriptor<T>(token);
     service.creator = creator;
     service.klass = klass;
@@ -56,7 +56,7 @@ export default class Collection implements ICollection {
     this.push<T>(token, service);
   }
 
-  public singleton<T>(token: string, klass: IServiceConstructor, creator?: (provider: IProvider) => T): void {
+  public singleton<T>(token: string, klass?: IServiceConstructor, creator?: (provider: IProvider) => T): void {
     const service = new ServiceDescriptor<T>(token);
     service.creator = creator;
     service.klass = klass;
@@ -64,7 +64,7 @@ export default class Collection implements ICollection {
     this.push<T>(token, service);
   }
 
-  public transient<T>(token: string, klass: IServiceConstructor, creator?: (provider: IProvider) => T): void {
+  public transient<T>(token: string, klass?: IServiceConstructor, creator?: (provider: IProvider) => T): void {
     const service = new ServiceDescriptor<T>(token);
     service.creator = creator;
     service.klass = klass;
