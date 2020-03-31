@@ -7,7 +7,7 @@ export default interface IProvider {
 
   internalSetCollection(collection: ICollection): void;
 
-  internalSetParent(parent: IProvider): void;
+  internalSetParent(parent: IProvider): boolean;
 
   // - - -
 

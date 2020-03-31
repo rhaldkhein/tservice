@@ -9,7 +9,7 @@ export default interface ICollection {
 
   internalGet<T>(token: string, own?: any): IServiceDescriptor<T>;
 
-  internalSetParent(collection: ICollection): void;
+  internalSetParent(collection: ICollection): boolean;
 
   // - - -
 

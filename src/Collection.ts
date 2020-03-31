@@ -31,8 +31,12 @@ export default class Collection implements ICollection {
     return this.services;
   }
 
-  public internalSetParent(collection: ICollection): void {
+  public internalSetParent(collection: ICollection): boolean {
+    if (this.parent === collection) {
+      return false;
+    }
     this.parent = collection;
+    return true;
   }
 
   /**
