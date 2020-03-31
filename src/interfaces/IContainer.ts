@@ -4,6 +4,8 @@ import IEventEmitter from "./IEventEmitter";
 
 export default interface IContainer extends IEventEmitter {
 
+  readonly isReady: boolean;
+
   readonly internalProvider: IProvider;
 
   readonly internalCollection: ICollection;
