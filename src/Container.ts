@@ -91,8 +91,14 @@ export default class Container extends EventEmitter implements IContainer {
   }
 
   public async parent(container: IContainer): Promise<any> {
-    this.collection.internalSetParent(container.internalCollection);
-    this.provider.internalSetParent(container.internalProvider);
+    const setColl = this.collection.internalSetParent(
+      container.internalCollection);
+    const setProv = this.provider.internalSetParent(
+      container.internalProvider);
+    // If both are already set, skip invoking events
+    if (!setColl && !setProv) {
+      return;
+    }
     await this.internalInvoke("link");
     await this.emit("link", this.provider);
     await container.internalInvoke("mount");

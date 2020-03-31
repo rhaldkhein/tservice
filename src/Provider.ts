@@ -51,8 +51,12 @@ export default class Provider implements IProvider {
     this.collection = collection;
   }
 
-  public internalSetParent(parent: IProvider): void {
+  public internalSetParent(parent: IProvider): boolean {
+    if (this.parent === parent) {
+      return false;
+    }
     this.parent = parent;
+    return true;
   }
 
   public internalSetInstances(instances: IKeyValPair): void {
