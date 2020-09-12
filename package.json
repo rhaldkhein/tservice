@@ -8,7 +8,6 @@
     "build": "tsc",
     "lint": "tslint --project .",
     "play": "ts-node _play",
-    "prepare": "npm run build",
     "test": "jest",
     "watch": "jest --watch"
   },
