@@ -13,7 +13,9 @@ export default interface IProvider {
 
   createProvider(): IProvider;
 
-  get<T>(token: string): T;
+  get<T>(token: string): T | null;
+
+  getRequired<T>(token: string): T;
 
   getOrNull<T>(token: string): T | null;
 

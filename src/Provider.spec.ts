@@ -115,9 +115,16 @@ describe("Provider", () => {
     provider.get<Sample>("sample");
   });
 
+  test("null missing service", () => {
+    const x = provider.get<FooService>("foox");
+    const y = provider.getOrNull<FooService>("fooy");
+    expect(x).toBeNull()
+    expect(y).toBeNull()
+  });
+
   test("throw missing service", () => {
     expect(() => {
-      provider.get<FooService>("foox");
+      provider.getRequired<FooService>("foox");
     }).toThrowError();
   });
 

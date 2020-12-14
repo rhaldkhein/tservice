@@ -71,15 +71,7 @@ export default class Provider implements IProvider {
     return new Provider(undefined, this);
   }
 
-  public get<T>(token: string): T {
-    const instance = this.getOrNull<T>(token);
-    if (!instance) {
-      throw new Error("Missing service: " + token);
-    }
-    return instance;
-  }
-
-  public getOrNull<T>(token: string): T | null {
+  public get<T>(token: string): T | null {
 
     // Find cache service
     let instance: T | null = this.instances[token];
@@ -108,6 +100,18 @@ export default class Provider implements IProvider {
     }
 
     return instance || null;
+  }
+
+  public getOrNull<T>(token: string): T | null {
+    return this.get<T>(token);
+  }
+
+  public getRequired<T>(token: string): T {
+    const instance = this.get<T>(token);
+    if (!instance) {
+      throw new Error("Missing service: " + token);
+    }
+    return instance;
   }
 
 }
