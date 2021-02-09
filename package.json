@@ -1,6 +1,6 @@
 {
   "name": "tservice",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Typescript for JService",
   "main": "dist/Main.js",
   "types": "dist/Main.d.ts",
