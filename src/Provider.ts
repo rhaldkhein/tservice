@@ -114,4 +114,9 @@ export default class Provider implements IProvider {
     return instance;
   }
 
+  public getNames(): string[] {
+    const services = this.collection?.internalServices;
+    return services ? services.map((s) => s.token) : [];
+  }
+
 }

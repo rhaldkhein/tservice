@@ -118,8 +118,8 @@ describe("Provider", () => {
   test("null missing service", () => {
     const x = provider.get<FooService>("foox");
     const y = provider.getOrNull<FooService>("fooy");
-    expect(x).toBeNull()
-    expect(y).toBeNull()
+    expect(x).toBeNull();
+    expect(y).toBeNull();
   });
 
   test("throw missing service", () => {
@@ -140,6 +140,14 @@ describe("Provider", () => {
     const barService = mock.get("bar");
     expect(fooService).toBe(foo);
     expect(barService).toBe(1);
+  });
+
+  test("get all service names", () => {
+    const names = provider.getNames();
+    expect(names.length).toBe(3);
+    expect(names).toContain("foo");
+    expect(names).toContain("bar");
+    expect(names).toContain("baz");
   });
 
 });

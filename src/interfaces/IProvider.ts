@@ -19,4 +19,6 @@ export default interface IProvider {
 
   getOrNull<T>(token: string): T | null;
 
+  getNames(): string[];
+
 }
