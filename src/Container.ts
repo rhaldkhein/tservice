@@ -32,45 +32,45 @@ export default class Container extends EventEmitter implements IContainer {
   }
 
   public async internalInvoke(method: string): Promise<any> {
-    return Promise.all(
-      this.collection.internalServices.map((service) => {
-        const klass = service.klass;
-        if (klass && klass.__service__ === true) {
-          switch (method) {
-            case "beforeStart":
-              if (klass.beforeStart) {
-                return klass.beforeStart(this.provider, service.token);
-              }
-              break;
-            case "start":
-              if (klass.start) {
-                return klass.start(this.provider, service.token);
-              }
-              break;
-            case "beforeReady":
-              if (klass.beforeReady) {
-                return klass.beforeReady(this.provider, service.token);
-              }
-              break;
-            case "ready":
-              if (klass.ready) {
-                return klass.ready(this.provider, service.token);
-              }
-              break;
-            case "mount":
-              if (klass.mount) {
-                return klass.mount(this.provider, service.token);
-              }
-              break;
-            case "link":
-              if (klass.link) {
-                return klass.link(this.provider, service.token);
-              }
-              break;
-          }
+    const services = this.collection.internalServices
+    for (let i = 0; i < services.length; i++) {
+      const service = services[i];
+      const klass = service.klass;
+      if (klass && klass.__service__ === true) {
+        switch (method) {
+          case "beforeStart":
+            if (klass.beforeStart) {
+              await klass.beforeStart(this.provider, service.token);
+            }
+            break;
+          case "start":
+            if (klass.start) {
+              await klass.start(this.provider, service.token);
+            }
+            break;
+          case "beforeReady":
+            if (klass.beforeReady) {
+              await klass.beforeReady(this.provider, service.token);
+            }
+            break;
+          case "ready":
+            if (klass.ready) {
+              await klass.ready(this.provider, service.token);
+            }
+            break;
+          case "mount":
+            if (klass.mount) {
+              await klass.mount(this.provider, service.token);
+            }
+            break;
+          case "link":
+            if (klass.link) {
+              await klass.link(this.provider, service.token);
+            }
+            break;
         }
-      })
-    );
+      }
+    }
   }
 
   // - - -
